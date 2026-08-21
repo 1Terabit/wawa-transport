@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { RoutesService } from '../../core/application/routes/routes.service';
 
@@ -23,5 +23,11 @@ export class RoutesController {
   @ApiOperation({ summary: 'Create a new route' })
   async create(@Body() body: any) {
     return this.routesService.create(body);
+  }
+
+  @Put(':id')
+  @ApiOperation({ summary: 'Update a route' })
+  async update(@Param('id') id: string, @Body() body: any) {
+    return this.routesService.update(id, body);
   }
 }

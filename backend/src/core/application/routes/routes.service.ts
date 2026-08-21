@@ -50,4 +50,13 @@ export class RoutesService {
       points: data.points,
     });
   }
+
+  async update(id: string, data: {
+    name?: string;
+    points?: { lat: number; lng: number; name?: string; orderIdx: number }[];
+  }) {
+    const route = await this.routeModel.findByIdAndUpdate(id, data, { new: true }).exec();
+    if (!route) throw new NotFoundException('Route not found');
+    return route;
+  }
 }

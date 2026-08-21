@@ -15,12 +15,12 @@ export default function RoutesList() {
     <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200 max-w-4xl mx-auto">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold text-slate-800">Rutas de Transporte</h1>
-        <button 
-          onClick={() => alert("Usa Swagger (/docs) para crear rutas en el MVP")}
-          className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition text-sm font-medium"
+        <Link 
+          to="/routes/new"
+          className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition text-sm font-medium inline-block"
         >
           + Nueva Ruta
-        </button>
+        </Link>
       </div>
       
       {routes.length === 0 ? (

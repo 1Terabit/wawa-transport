@@ -192,8 +192,20 @@ export default function RouteDetail() {
         </div>
         
         <div className="bg-white p-6 rounded-xl shadow-sm border overflow-y-auto flex flex-col">
-          <h2 className="text-2xl font-bold text-slate-800">{route.name}</h2>
-          <p className="text-sm text-slate-500 mb-6 font-mono">ID: {route.id}</p>
+          <div className="flex justify-between items-start mb-6">
+            <div>
+              <div className="flex items-center space-x-3">
+                <h2 className="text-2xl font-bold text-slate-800">{route.name}</h2>
+                <Link 
+                  to={`/routes/${route.id}/edit`}
+                  className="bg-gray-100 text-gray-700 hover:bg-gray-200 px-3 py-1 rounded-md text-sm font-medium transition"
+                >
+                  Editar Ruta
+                </Link>
+              </div>
+              <p className="text-slate-500 font-mono text-sm mt-1">ID: {route.id}</p>
+            </div>
+          </div>
           
           <h3 className="text-lg font-semibold text-slate-800 border-b pb-2 mb-4">Duties Asignados</h3>
           
