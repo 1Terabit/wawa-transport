@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: wawa-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - mongodb_data:/data/db
+    restart: unless-stopped
+
+  redis:
+    image: redis:alpine
+    container_name: wawa-redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+    container_name: wawa-backend
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./backend/.env
+    environment:
+      - MONGODB_URI=mongodb://admin:password@mongodb:27017/wawa-transport?authSource=admin
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - mongodb
+      - redis
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        - VITE_MAPBOX_TOKEN=${VITE_MAPBOX_TOKEN:-pk.eyJ1IjoibmV3dG9uZ2F1cyIsImEiOiJjbXBxZjZtYXQwbzN4MnlweGlhZ3E0bXgwIn0.tK4EP2uyBOovMoK1cea5TQ}
+        - VITE_API_URL=http://localhost:3000
+    container_name: wawa-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  seed:
+    build:
+      context: ./backend
+      target: builder
+    container_name: wawa-seed
+    environment:
+      - MONGODB_URI=mongodb://admin:password@mongodb:27017/wawa-transport?authSource=admin
+    command: ["pnpm", "ts-node", "src/seed.ts"]
+    depends_on:
+      - mongodb
+
+volumes:
+  mongodb_data:
