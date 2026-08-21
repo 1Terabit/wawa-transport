@@ -1,0 +1,49 @@
+# Dependencias
+node_modules/
+.pnpm-store/
+
+# Entornos y Secretos
+.env
+.env.*
+!.env.example
+*.pem
+
+# Compilados y Builds
+dist/
+build/
+out/
+.next/
+.nuxt/
+.cache/
+
+# Logs y Debug
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Base de datos local (volúmenes de Docker si se montan en el host)
+mongodb_data/
+redis_data/
+
+# Testing
+coverage/
+.nyc_output/
+
+# SO y Editores
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Wawa Transport específicos
+# NOTA: La carpeta .agents NO se ignora porque contiene las reglas 
+# y skills de la IA que queremos compartir con el equipo.
