@@ -82,7 +82,7 @@ graph TD
     end
 
     AIS -->|Prompt + Contexto Estructurado| Gemini
-    Gemini -->|Respuesta JSON (Zod)| AIS
+    Gemini -->|Respuesta JSON| AIS
     Map -->|Solicita Rutas GeoJSON| MapboxAPI
 ```
 
